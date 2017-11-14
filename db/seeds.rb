@@ -1,7 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'random_data'
+
+# Create Wishlists
+15.times do
+  Wishlist.create!(
+    name:         RandomData.random_sentence,
+    description:  RandomData.random_paragraph
+  )
+end
+wishlists = Wishlist.all
+
+# Create Wishes
+50.times do
+  Wish.create!(
+    wishlist: wishlists.sample,
+    title:    RandomData.random_sentence,
+    body:     RandomData.random_paragraph,
+    url:      RandomData.random_url,
+    rating:   RandomData.random_rating
+  )
+end
+
+puts "Seed finished"
+puts "#{Wishlist.count} wishlists created"
+puts "#{Wish.count} wishes created"
